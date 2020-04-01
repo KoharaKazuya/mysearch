@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>MySearch</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/sanitize.css@11.0.0/sanitize.css"
+      integrity="sha384-KcbkICW9AiIQ2NkoMVCyn4KAWRa9tE2anP60+J1I+hntFtttZH/7QNUMkaua6NN9"
+      crossorigin="anonymous"
+    />
+    <style>
+      html {
+        font-family: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic UI",
+          sans-serif;
+      }
+      html,
+      body,
+      form {
+        height: 100%;
+      }
+      form {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        display: block;
+        width: 80%;
+        max-width: 640px;
+        font-size: 16px;
+        padding: 10px 30px;
+        border: solid 1px #ccc;
+        border-radius: 23px;
+      }
+      input:focus {
+        outline: none;
+        border: solid 1px #1a73e8;
+      }
+    </style>
+    <script type="module" defer>
+      const myFavoriteSites = [
+        "developer.mozilla.org",
+        "docs.aws.amazon.com",
+        "github.com",
+        "reactjs.org"
+      ];
+
+      const form = document.querySelector("form");
+      const input = document.querySelector("input");
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        const keyword = input.value;
+        const query = `${keyword} ${myFavoriteSites
+          .map(site => `site:${site}`)
+          .join(" OR ")}`;
+        location.href = `https://www.google.com/search?q=${encodeURIComponent(
+          query
+        )}`;
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <input autofocus />
+    </form>
+  </body>
+</html>
